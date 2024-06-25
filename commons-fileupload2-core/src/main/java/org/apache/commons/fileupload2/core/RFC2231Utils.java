@@ -103,7 +103,7 @@ final class RFC2231Utils {
                 }
                 final var b1 = HEX_DECODE[text.charAt(i++) & MASK];
                 final var b2 = HEX_DECODE[text.charAt(i++) & MASK];
-                out.write(b1 << shift | b2);
+                out.write((b1 << shift | b2) & 0xff);
             } else {
                 out.write((byte) c);
             }
