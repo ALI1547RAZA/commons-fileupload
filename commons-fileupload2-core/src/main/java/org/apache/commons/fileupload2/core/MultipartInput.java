@@ -265,11 +265,16 @@ public final class MultipartInput {
                             break;
                         }
                     }
-                    skip(av);
+                    long skipped = skip(av);
+                    if (skipped != av) {
+                        // Handle the case where the number of bytes skipped is different from available
+                        break; // Exit loop or handle differently if needed
+                    }
                 }
             }
             closed = true;
         }
+
 
         /**
          * Called for finding the separator.
