@@ -101,9 +101,10 @@ final class RFC2231Utils {
                 if (i > text.length() - 2) {
                     break; // unterminated sequence
                 }
-                final var b1 = HEX_DECODE[text.charAt(i++) & MASK];
-                final var b2 = HEX_DECODE[text.charAt(i++) & MASK];
+                final var b1 = HEX_DECODE[text.charAt(i++) & MASK] & 0xff;
+                final var b2 = HEX_DECODE[text.charAt(i++) & MASK] & 0xff;
                 out.write((b1 << shift | b2) & 0xff);
+
             } else {
                 out.write((byte) c);
             }
