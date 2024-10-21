@@ -262,7 +262,7 @@ public final class MultipartInput {
             if (av == 0) {
                 av = makeAvailable();
                 if (av == 0) {
-                    break; // Exit the loop when no bytes are available
+                   
                 }
             }
             long skipped = skip(av);
