@@ -250,30 +250,31 @@ public final class MultipartInput {
          * @throws IOException An I/O error occurred.
          */
         public void close(final boolean closeUnderlying) throws IOException {
-            if (closed) {
-                return;
-            }
-            if (closeUnderlying) {
-                closed = true;
-                input.close();
-            } else {
-                for (;;) {
-                    var av = available();
-                    if (av == 0) {
-                        av = makeAvailable();
-                        if (av == 0) {
-                            break;
-                        }
-                    }
-                    long skipped = skip(av);
-                    if (skipped != av) {
-                        // Handle the case where the number of bytes skipped is different from available
-                        break; // Exit loop or handle differently if needed
-                    }
+    if (closed) {
+        return;
+    }
+    if (closeUnderlying) {
+        closed = true;
+        input.close();
+    } else {
+        while (true) {
+            var av = available();
+            if (av == 0) {
+                av = makeAvailable();
+                if (av == 0) {
+                    break; // Exit the loop when no bytes are available
                 }
             }
-            closed = true;
+            long skipped = skip(av);
+            if (skipped != av) {
+                // Handle the case where the number of bytes skipped is different from available
+                break; // Exit the loop or handle this case accordingly
+            }
         }
+    }
+    closed = true; // Ensure closed is set to true after the loop
+}
+
 
 
         /**
