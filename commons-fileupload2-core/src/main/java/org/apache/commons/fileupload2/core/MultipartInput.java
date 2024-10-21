@@ -261,9 +261,7 @@ public final class MultipartInput {
             var av = available();
             if (av == 0) {
                 av = makeAvailable();
-                if (av == 0) {
-                   
-                }
+                if (av == 0) 
             }
             long skipped = skip(av);
             if (skipped != av) {
